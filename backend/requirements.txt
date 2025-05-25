@@ -4,13 +4,16 @@ fastapi==0.104.1
 # WebサーバーとしてのUvicorn
 uvicorn[standard]==0.24.0
 
-# データベース接続用（PostgreSQL）
+# HTTPクライアント（外部API呼び出し用）
+httpx==0.25.2
+
+# データベース接続用（PostgreSQL）- 今後使用予定
 psycopg2-binary==2.9.9
 
-# ORM（データベース操作を簡単にする）
+# ORM（データベース操作を簡単にする）- 今後使用予定
 sqlalchemy==2.0.23
 
-# データベースマイグレーション
+# データベースマイグレーション - 今後使用予定
 alembic==1.12.1
 
 # バリデーション（データ検証）
