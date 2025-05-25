@@ -1,0 +1,23 @@
+# FastAPI本体
+fastapi==0.104.1
+
+# WebサーバーとしてのUvicorn
+uvicorn[standard]==0.24.0
+
+# データベース接続用（PostgreSQL）
+psycopg2-binary==2.9.9
+
+# ORM（データベース操作を簡単にする）
+sqlalchemy==2.0.23
+
+# データベースマイグレーション
+alembic==1.12.1
+
+# バリデーション（データ検証）
+pydantic==2.5.0
+
+# CORS対応（フロントエンドとの通信で必要）
+python-multipart==0.0.6
+
+# 環境変数管理
+python-dotenv==1.0.0

@@ -1,0 +1,59 @@
+# マルチコンテナアプリケーションの設定
+
+services:
+  # フロントエンド（Next.js）サービス
+  frontend:
+    # frontendフォルダのDockerfileを使用してビルド
+    build: ./frontend
+    
+    # ポートマッピング（ホスト:コンテナ）
+    ports:
+      - "3000:3000"
+    
+    # ボリューム設定（ホットリロード対応）
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    
+    # 環境変数
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      # バックエンドAPIのURL（重要！）
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    
+    # 開発モードで起動
+    command: npm run dev
+    
+    # バックエンドが起動してから開始
+    depends_on:
+      - backend
+
+  # バックエンド（FastAPI）サービス  
+  backend:
+    # backendフォルダのDockerfileを使用してビルド
+    build: ./backend
+    
+    # ポートマッピング
+    ports:
+      - "8000:8000"
+    
+    # ボリューム設定（ホットリロード対応）
+    volumes:
+      - ./backend:/app
+    
+    # 環境変数
+    environment:
+      - PYTHONPATH=/app
+      # 後でデータベース接続情報を追加予定
+      # - DATABASE_URL=postgresql://user:password@db:5432/fishing_app
+    
+    # FastAPIを開発モードで起動（自動リロード有効）
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+# 今後追加予定：
+# - データベース（PostgreSQL）サービス
+# - Redis（キャッシュ）サービス
+# - ボリューム設定
